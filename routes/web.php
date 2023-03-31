@@ -39,3 +39,4 @@ Route::get('fiche-vide-pdf','FichesController@fiche_vide')->name('fiche-vide');
 
 Route::resource('activites', 'ActivitesController');
 Route::get('activite-generate-pdf/{id}','ActivitesController@pdf')->name('pdf');
+Route::get('test','ActivitesController@test')->name('test');

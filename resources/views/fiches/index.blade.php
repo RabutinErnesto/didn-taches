@@ -35,7 +35,7 @@
                 <summary>
                     <strong>{{ $data->materiel}}, date d'arrivée: {{$data->date_arrivee}}</strong>
                 </summary>
-                <p>{{ $data->nom_proprietaire}}, {{ $data->direction_proprietaire}}</p>
+                <p>{{ $data->nom_proprietaire}} ({{implode('', $data->direction()->get()->pluck('abr')->toArray())}}) </p>
             </details>
         </div>
         <div class="col-sm form-inline justify-content-end my-1">

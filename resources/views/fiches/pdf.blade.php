@@ -47,8 +47,8 @@
                 <div style="font-size: 12px; margin-top: 2% " > <strong>PROPRIETAIRE :</strong>
                     <ul>
                         <li>Nom et prenoms : {{$fiche->nom_proprietaire}}</li>
-                        <li>Direction : {{$fiche->direction_proprietaire}}</li>
-                        <li>Service : {{$fiche->service_proprietaire}}</li>
+                        <li>Direction : {{implode('', $fiche->direction()->get()->pluck('abr')->toArray())}}</li>
+                            <li>Service : {{implode('', $fiche->service()->get()->pluck('abr')->toArray())}}</li>
                         <li>Fonction :{{$fiche->fonction_proprietaire}}</li>
                         <li>Contact : {{$fiche->contact_proprietaire}}</li>
                     </ul>
@@ -158,7 +158,11 @@
 
             <p style="font-size:12px">MOTIFS ET REMARQUE : <small>{{$fiche->motifs_et_remarques}}</small> </p>
             <p style="font-size:12px">RECOMMANDATION : <small>{{$fiche->recommandation}}</small> </p>
+            @if ($fiche->date_sortie)
+            <p  style="font-size:12px">Remis le : <small>{{$fiche->date_sortie}}</small> </p>
+            @else
 
+            @endif
             <table style="margin-left: 20%; text-align:center;font-size:12px">
                 <tr>
                     <td><p>Signature de l'intervenant</p></td>

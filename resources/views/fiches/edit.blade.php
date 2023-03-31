@@ -36,12 +36,24 @@
             </div>
             <div class="form-group col-3">
                 <label for="name">Direction</label>
-                <input type="text" name="direction_proprietaire" value="{{ old('direction_proprietaire', $fiche->direction_proprietaire) }}" class="form-control"  aria-describedby="nameHelp">
+                <select class="form-control" name="direction_proprietaire" required id="direction" onchange="giveSelection(this.value)">
+                    <option value="{{$fiche->direction_id}}">{{implode('', $fiche->direction()->get()->pluck('abr')->toArray())}}</option>
+                   <option value=""></option>
+                    @foreach ($direction as $direction)
+                    <option value="{{$direction->id}}">{{$direction->abr}}</option>
+                    @endforeach
+                </select>
                 <small id="nameHelp" class="form-text text-muted">Entrez le direction du proprietaire</small>
             </div>
             <div class="form-group col-3">
                 <label for="name">Service </label>
-                <input type="text" name="service_proprietaire" value="{{ old('service_proprietaire', $fiche->service_proprietaire) }}" class="form-control"  aria-describedby="nameHelp">
+                <select class="form-control " name="service_proprietaire" aria-valuetext="{{implode('', $fiche->service()->get()->pluck('abr')->toArray())}}" required id="service" >
+                    <option value="{{$fiche->service_id}}">{{implode('', $fiche->service()->get()->pluck('abr')->toArray())}}</option>
+                    <option value=""></option>
+                    @foreach ($service as $service)
+                    <option value="{{$service->id}}" data-chained="{{$service->direction_id}}" >{{$service->abr}}</option>
+                    @endforeach
+                </select>
                 <small id="nameHelp" class="form-text text-muted">Entrez le service de proprietaire</small>
             </div>
         </div>
@@ -139,7 +151,6 @@
                     <label for="description">Solution envisagées</label>
                     <select name="solutions" id="" class="form-control">
                         <option value="{{$fiche->solutions}}">{{$fiche->solutions}}</option>
-                        <option value=""></option>
                         @foreach ($solution as $solution)
                         <option value="{{$solution->solution}}">{{$solution->solution}}</option>
                         @endforeach
@@ -177,11 +188,19 @@
           <label for="description">Recommandation</label>
           <textarea type="textarea" name="recommandation" class="form-control"  aria-describedby="nameHelp">{{old('recommandation', $fiche->recommandation)}}</textarea>
       </div>
+      <div class="form-group col-6">
+        <label for="name">Date de sortie</label>
+        <input type="date" name="date_sortie" class="form-control" value=""  aria-describedby="nameHelp">
+        <small id="nameHelp" class="form-text text-muted">Entrez la date de sortie</small>
+    </div>
         </div>
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
       </form>
     </div>
 </div>
 
-
+<script src="{{asset('js/jquery-3.2.1.js')}}"></script>
+<script src="{{asset('js/jquery.chained.min.js')}}"></script>
+<script>
+$("#service").chained("#direction");</script>
 @endsection

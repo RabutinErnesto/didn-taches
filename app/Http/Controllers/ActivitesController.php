@@ -25,10 +25,15 @@ class activitesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function test(){
+        $activite = Activites::orderBy('semaine')->get()->groupBy('service');
+
+        return view('activites.test', ['activite'=>$activite]);
+    }
     public function index()
     {
         $userId = Auth::user()->id;
-        $this->data['activite']=Activites::orderBy('id','desc')->paginate(10);
+        $this->data['activite']=Activites::orderBy('id','desc')->get();
         $this->data['users']=$this->users;
         return view('activites.index',$this->data);
     }
@@ -41,10 +46,10 @@ class activitesController extends Controller
     public function create()
     {
         $service =ServiceDIDN::get();
-        $direction = Direction::get();
+        $service2 = ServiceDIDN::get();
         return view('activites.create',[
             'service'=>$service,
-            'direction' =>$direction
+            'service2' =>$service2
         ]);
     }
 
@@ -56,22 +61,25 @@ class activitesController extends Controller
      */
     public function store(Request $request)
     {
-       /*
-        dd($request->all());
-        foreach ($request->moreFields as $key => $activite) {
-            dd($request->all());
-           // Activites::create($activite);
-        }*/
+        $data = $request->all();
+            $activite = new Activites();
+            $activite->user_created=Auth::user()->id;
+            $activite->semaine=$request->semaine;
+            $activite->service=$request->service;
+            $activite->intitule_activite =implode(',',$request->intitule_activite) ;
+            $activite->status=implode(',',$request->status ) ;
+            $activite->description =implode(',',$request->description ) ;
+            $activite->observation = implode(',',$request->observation ) ;
+            $activite->semaine2=$request->semaine2;
+            $activite->service2=$request->service;
+            $activite->intitule_activite2 =implode(',',$request->intitule_activite2) ;
+            $activite->deadline=implode(',',$request->deadline ) ;
+            $activite->description2 = implode(',',$request->description2 ) ;
+            $activite->observation2 = implode(',',$request->observation2 ) ;
+            $activite->save();
 
-       $activite = new Activites();
-        $activite->user_created=Auth::user()->id;
-        $activite->semaine=$request->semaine;
-        $activite->service=$request->service;
-        $activite->intitule_activite = $request->intitule_activite;
-        $activite->details=$request->details;
-        $activite->description = $request->description;
-        $activite->observation = $request->observation;
-        $activite->save();
+
+
         notify()->success("L'activité <span class='badge badge-dark'>#$activite->id</span> vient d'être créée");
         return redirect()->route('activites.index');
     }
@@ -85,6 +93,19 @@ class activitesController extends Controller
     public function show($id)
     {
         $this->data['activite']=Activites::find($id);
+        $this->data['expl'] = $this->data['activite'];
+        $this->data['array']= [explode(',', $this->data['expl']->intitule_activite),
+        explode(',', $this->data['expl']->description),
+        explode(',', $this->data['expl']->status),
+        explode(',', $this->data['expl']->observation),
+        ];
+        $this->data['array2']= [explode(',', $this->data['expl']->intitule_activite2),
+        explode(',', $this->data['expl']->description2),
+        explode(',', $this->data['expl']->deadline),
+        explode(',', $this->data['expl']->observation2),
+        ];
+
+
         return view('activites.show',$this->data);
     }
 
@@ -96,12 +117,23 @@ class activitesController extends Controller
      */
     public function edit($id)
     {
-        $service =ServiceDIDN::get();
-        $activite = Activites::find($id);
-        return view('activites.edit',[
-            'service'=>$service,
-            'activite' =>$activite
-        ]);
+        $this->data['activite']=Activites::find($id);
+        $this->data['expl'] = $this->data['activite'];
+        $this->data['array']= [explode(',', $this->data['expl']->intitule_activite),
+        explode(',', $this->data['expl']->description),
+        explode(',', $this->data['expl']->status),
+        explode(',', $this->data['expl']->observation),
+        ];
+        $this->data['array2']= [explode(',', $this->data['expl']->intitule_activite2),
+        explode(',', $this->data['expl']->description2),
+        explode(',', $this->data['expl']->deadline),
+        explode(',', $this->data['expl']->observation2),
+        ];
+
+
+        $this->data['service']=ServiceDIDN::get();
+        $this->data['service2']=ServiceDIDN::get();
+        return view('activites.edit',$this->data);
     }
 
     /**
@@ -114,12 +146,17 @@ class activitesController extends Controller
     public function update(Request $request, $id)
     {
         $activite= Activites::findOrFail($id);
-        $activite->user_created=Auth::user()->id;
+
         $activite->service=$request->service;
-        $activite->intitule_activite = $request->intitule_activite;
-        $activite->details=$request->details;
-        $activite->description = $request->description;
-        $activite->observation = $request->observation;
+        $activite->intitule_activite =$request->intitule_activite ;
+        $activite->status=$request->status  ;
+        $activite->description =$request->description  ;
+        $activite->observation = $request->observation  ;
+        $activite->service2=$request->service;
+        $activite->intitule_activite2 =$request->intitule_activite2 ;
+        $activite->deadline=$request->deadline  ;
+        $activite->description2 = $request->description2  ;
+        $activite->observation2 = $request->observation2  ;
         $activite->save();
         notify()->success("L'activité <span class='badge badge-dark'>#$activite->id</span> a été bien mise à jour");
         return redirect()->route('activites.index');
@@ -141,9 +178,22 @@ class activitesController extends Controller
     public function pdf($id)
         {
             $activite=Activites::find($id);
+            $this->data['expl'] = $activite;
+            $array= [explode(',', $this->data['expl']->intitule_activite),
+            explode(',', $this->data['expl']->description),
+            explode(',', $this->data['expl']->status),
+            explode(',', $this->data['expl']->observation),
+            ];
+            $array2= [explode(',', $this->data['expl']->intitule_activite2),
+            explode(',', $this->data['expl']->description2),
+            explode(',', $this->data['expl']->deadline),
+            explode(',', $this->data['expl']->observation2),
+            ];
             $data = [
                 'title' => 'activite',
-                'activite'=>$activite
+                'activite'=>$activite,
+                'array' => $array,
+                'array2' => $array2,
             ];
         // return view('activites.pdf', $data);
             $pdf = PDF::loadview('activites/pdf', $data)->setpaper('21 x 29,7', 'portrait');

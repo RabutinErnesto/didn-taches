@@ -20,8 +20,8 @@
                     <div class="col-6"> <strong>PROPRIETAIRE :</strong>
                         <ul>
                             <li>Nom et prenoms : {{$fiche->nom_proprietaire}}</li>
-                            <li>Direction : {{$fiche->direction_proprietaire}}</li>
-                            <li>Service : {{$fiche->service_proprietaire}}</li>
+                            <li>Direction : {{implode('', $fiche->direction()->get()->pluck('abr')->toArray())}}</li>
+                            <li>Service : {{implode('', $fiche->service()->get()->pluck('abr')->toArray())}}</li>
                             <li>Fonction :{{$fiche->fonction_proprietaire}}</li>
                             <li>Contact : {{$fiche->contact_proprietaire}}</li>
                         </ul>
@@ -178,7 +178,11 @@
 
 
                 <br>
+                @if ($fiche->date_sortie)
+                <p>Remis le : <small>{{$fiche->date_sortie}}</small> </p>
+                @else
 
+                @endif
                 </div>
 
 

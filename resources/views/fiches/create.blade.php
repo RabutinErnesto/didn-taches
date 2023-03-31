@@ -34,7 +34,7 @@
             </div>
             <div class="form-group col-3">
                 <label for="name">Direction</label>
-                <select class="form-control" name="direction_proprietaire" required id="sel1" onchange="giveSelection(this.value)">
+                <select class="form-control" name="direction_proprietaire" required id="direction" onchange="giveSelection(this.value)">
                     <option value=""></option>
                     @foreach ($direction as $direction)
                     <option value="{{$direction->id}}">{{$direction->abr}}</option>
@@ -44,10 +44,10 @@
             </div>
             <div class="form-group col-3">
                 <label for="name">Service </label>
-                <select class="form-control " name="service_proprietaire" required id="sel2" disabled>
+                <select class="form-control " name="service_proprietaire" required id="service" >
                     <option value=""></option>
                     @foreach ($service as $service)
-                    <option value="{{$service->abr}}" data-option="{{$service->direction_id}}" >{{$service->abr}}</option>
+                    <option value="{{$service->id}}" data-chained="{{$service->direction_id}}" >{{$service->abr}}</option>
                     @endforeach
                 </select>
                 <small id="nameHelp" class="form-text text-muted">Entrez le service de proprietaire</small>
@@ -187,21 +187,8 @@
     </div>
   </div>
 
-  <script>
-var sel1 = document.querySelector('#sel1');
-var sel2 = document.querySelector('#sel2');
-var options2 = sel2.querySelectorAll('option');
-
-function giveSelection(selValue) {
-  sel2.innerHTML = '';
-  for(var i = 0; i < options2.length; i++) {
-    if(options2[i].dataset.option === selValue) {
-    $(sel2).prop('disabled', false);
-      sel2.appendChild(options2[i]);
-    }
-  }
-}
-
-giveSelection(sel1.value);
-  </script>
+  <script src="{{asset('js/jquery-3.2.1.js')}}"></script>
+  <script src="{{asset('js/jquery.chained.min.js')}}"></script>
+<script>
+$("#service").chained("#direction");</script>
 @endsection

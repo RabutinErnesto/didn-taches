@@ -12,7 +12,7 @@
     </div>
   </div>
 </div>
-@if ($activite->isNotEmpty())
+
 @foreach ($activite as $data)
 <div class="alert alert-success" role="alert">
     <div class="row">
@@ -30,9 +30,15 @@
             </p>
             <details>
                 <summary>
-                    <strong>{{ $data->intitule_activite}}, semaine: {{$data->semaine}}</strong>
+                    <strong>Activite realisee et en cours : </strong>semaine de {{$data->semaine}}
                 </summary>
-                <p>{{ $data->description}}</p>
+
+                {{ $data->intitule_activite}}
+
+                <h6><strong>Activite a realiser : </strong>semaine de {{$data->semaine2}}</h6>
+
+
+                {{ $data->intitule_activite2}}
             </details>
         </div>
         <div class="col-sm form-inline justify-content-end my-1">
@@ -63,11 +69,7 @@
     </div>
 </div>
 @endforeach
-@else
-<div class="alert alert-danger py-4">
-    <h3>Pas d'activités</h3>
-</div>
-@endif
+
 
 
 

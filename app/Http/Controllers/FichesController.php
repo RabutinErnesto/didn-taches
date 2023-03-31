@@ -73,8 +73,8 @@ class fichesController extends Controller
         $fiches->date_arrivee = $request->date;
         $fiches->nom_intervenant = $request->nom_intervenant;
         $fiches->nom_proprietaire = $request->nom_proprietaire;
-        $fiches->direction_proprietaire = $request->direction_proprietaire;
-        $fiches->service_proprietaire = $request->service_proprietaire;
+        $fiches->direction_id = $request->direction_proprietaire;
+        $fiches->service_id = $request->service_proprietaire;
         $fiches->fonction_proprietaire = $request->fonction_proprietaire;
         $fiches->contact_proprietaire = $request->contact_proprietaire;
         $fiches->materiel = $request->materiel;
@@ -135,12 +135,16 @@ class fichesController extends Controller
         $materiel = Materiel::get();
         $probleme = Probleme::get();
         $resultat = Resultat::get();
+        $direction = Direction::get();
+        $service = Service::get();
         return view('fiches.edit',[
             'fiche'=>$fiche,
             'materiel'=>$materiel,
             'solution' => $solution,
             'probleme' => $probleme,
             'resultat' => $resultat,
+            'direction' => $direction,
+            'service' => $service
         ]);
     }
 
@@ -154,10 +158,13 @@ class fichesController extends Controller
     public function update(Request $request, $id)
     {
         $fiches= Fiches::findOrFail($id);
+        $old = $fiches->date_sortie;
+
+
         $fiches->nom_intervenant = $request->nom_intervenant;
         $fiches->nom_proprietaire = $request->nom_proprietaire;
-        $fiches->direction_proprietaire = $request->direction_proprietaire;
-        $fiches->service_proprietaire = $request->service_proprietaire;
+        $fiches->direction_id = $request->direction_proprietaire;
+        $fiches->service_id = $request->service_proprietaire;
         $fiches->fonction_proprietaire = $request->fonction_proprietaire;
         $fiches->contact_proprietaire = $request->contact_proprietaire;
         $fiches->materiel = $request->materiel;
@@ -177,7 +184,12 @@ class fichesController extends Controller
         $fiches->resultat = $request->resultat;
         $fiches->motifs_et_remarques = $request->motif;
         $fiches->recommandation = $request->recommandation;
-        $fiches->user_created=Auth::user()->id;
+
+        if ($request->has('date_sortie')){
+            $fiches->date_sortie = $request->date_sortie;
+        }else{
+            $fiches->date_sortie = $old;
+        }
         $fiches->save();
         notify()->success("Le fiche <span class='badge badge-dark'>#$fiches->id</span> a été bien mise à jour");
         return redirect()->route('fiches.index');
