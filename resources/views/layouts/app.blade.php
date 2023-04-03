@@ -26,7 +26,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                      {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -106,6 +106,7 @@
                         <li class="nav-item">
                             <a href="{{ route('activites.index')}}" class="nav-link">Activités</a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{ route('apropos')}}" class="nav-link">A propos</a>
                         </li>

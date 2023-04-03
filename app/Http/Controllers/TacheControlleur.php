@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Notifications\TacheAffected;
 Use App\Tache;
 Use App\User;
-
 use Illuminate\Support\Facades\Auth;
 
 class TacheControlleur extends Controller
@@ -19,7 +18,9 @@ class TacheControlleur extends Controller
     public function __construct()
     {
         $this->users=User::getAllUsers();
+        $this->middleware('auth');
     }
+
     /**
      * Assign a tache to user
      * @param App\Tache @tache
@@ -43,6 +44,7 @@ class TacheControlleur extends Controller
      */
     public function index()
     {
+
 
         //$datas = Tache::All();
         //$this->data['tache']=Tache::All();

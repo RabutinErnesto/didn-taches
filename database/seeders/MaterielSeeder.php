@@ -19,6 +19,8 @@ class MaterielSeeder extends Seeder
             [ 'materiel'=>'Ecran',],
             [ 'materiel'=>'Ordinateur Portable',],
             [ 'materiel'=>'Imprimante',],
+            [ 'materiel'=>'Onduleur',],
+            [ 'materiel'=>'Stabilisateur',],
          ]);
     }
 }

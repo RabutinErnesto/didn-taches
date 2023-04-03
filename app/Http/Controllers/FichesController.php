@@ -23,6 +23,7 @@ class fichesController extends Controller
     public function __construct()
     {
         $this->users=User::getAllUsers();
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -31,6 +32,7 @@ class fichesController extends Controller
      */
     public function index()
     {
+
         $userId = Auth::user()->id;
         $this->data['fiche']=Fiches::orderBy('id','desc')->paginate(10);
         $this->data['users']=$this->users;

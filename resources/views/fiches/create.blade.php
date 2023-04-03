@@ -74,6 +74,7 @@
             <div class="form-group col-4">
                 <label for="materiel">Materiels</label>
                 <select class="form-control" name="materiel">
+                    <option value="">----</option>
                     @foreach ($materiel as $materiel)
                     <option value="{{$materiel->materiel}}">{{$materiel->materiel}}</option>
                     @endforeach

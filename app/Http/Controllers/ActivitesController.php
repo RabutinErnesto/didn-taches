@@ -19,6 +19,7 @@ class activitesController extends Controller
     public function __construct()
     {
         $this->users=User::getAllUsers();
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -32,6 +33,7 @@ class activitesController extends Controller
     }
     public function index()
     {
+
         $userId = Auth::user()->id;
         $this->data['activite']=Activites::orderBy('id','desc')->get();
         $this->data['users']=$this->users;
@@ -66,16 +68,16 @@ class activitesController extends Controller
             $activite->user_created=Auth::user()->id;
             $activite->semaine=$request->semaine;
             $activite->service=$request->service;
-            $activite->intitule_activite =implode(',',$request->intitule_activite) ;
-            $activite->status=implode(',',$request->status ) ;
-            $activite->description =implode(',',$request->description ) ;
-            $activite->observation = implode(',',$request->observation ) ;
+            $activite->intitule_activite =implode('|',$request->intitule_activite) ;
+            $activite->status=implode('|',$request->status ) ;
+            $activite->description =implode('|',$request->description ) ;
+            $activite->observation = implode('|',$request->observation ) ;
             $activite->semaine2=$request->semaine2;
             $activite->service2=$request->service;
-            $activite->intitule_activite2 =implode(',',$request->intitule_activite2) ;
-            $activite->deadline=implode(',',$request->deadline ) ;
-            $activite->description2 = implode(',',$request->description2 ) ;
-            $activite->observation2 = implode(',',$request->observation2 ) ;
+            $activite->intitule_activite2 =implode('|',$request->intitule_activite2) ;
+            $activite->deadline=implode('|',$request->deadline ) ;
+            $activite->description2 = implode('|',$request->description2 ) ;
+            $activite->observation2 = implode('|',$request->observation2 ) ;
             $activite->save();
 
 
@@ -94,15 +96,15 @@ class activitesController extends Controller
     {
         $this->data['activite']=Activites::find($id);
         $this->data['expl'] = $this->data['activite'];
-        $this->data['array']= [explode(',', $this->data['expl']->intitule_activite),
-        explode(',', $this->data['expl']->description),
-        explode(',', $this->data['expl']->status),
-        explode(',', $this->data['expl']->observation),
+        $this->data['array']= [explode('|', $this->data['expl']->intitule_activite),
+        explode('|', $this->data['expl']->description),
+        explode('|', $this->data['expl']->status),
+        explode('|', $this->data['expl']->observation),
         ];
-        $this->data['array2']= [explode(',', $this->data['expl']->intitule_activite2),
-        explode(',', $this->data['expl']->description2),
-        explode(',', $this->data['expl']->deadline),
-        explode(',', $this->data['expl']->observation2),
+        $this->data['array2']= [explode('|', $this->data['expl']->intitule_activite2),
+        explode('|', $this->data['expl']->description2),
+        explode('|', $this->data['expl']->deadline),
+        explode('|', $this->data['expl']->observation2),
         ];
 
 
@@ -119,15 +121,15 @@ class activitesController extends Controller
     {
         $this->data['activite']=Activites::find($id);
         $this->data['expl'] = $this->data['activite'];
-        $this->data['array']= [explode(',', $this->data['expl']->intitule_activite),
-        explode(',', $this->data['expl']->description),
-        explode(',', $this->data['expl']->status),
-        explode(',', $this->data['expl']->observation),
+        $this->data['array']= [explode('|', $this->data['expl']->intitule_activite),
+        explode('|', $this->data['expl']->description),
+        explode('|', $this->data['expl']->status),
+        explode('|', $this->data['expl']->observation),
         ];
-        $this->data['array2']= [explode(',', $this->data['expl']->intitule_activite2),
-        explode(',', $this->data['expl']->description2),
-        explode(',', $this->data['expl']->deadline),
-        explode(',', $this->data['expl']->observation2),
+        $this->data['array2']= [explode('|', $this->data['expl']->intitule_activite2),
+        explode('|', $this->data['expl']->description2),
+        explode('|', $this->data['expl']->deadline),
+        explode('|', $this->data['expl']->observation2),
         ];
 
 
@@ -145,18 +147,20 @@ class activitesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->all();
         $activite= Activites::findOrFail($id);
 
+        $activite->semaine=$request->semaine;
         $activite->service=$request->service;
-        $activite->intitule_activite =$request->intitule_activite ;
-        $activite->status=$request->status  ;
-        $activite->description =$request->description  ;
-        $activite->observation = $request->observation  ;
+        $activite->intitule_activite =implode('|',$request->intitule_activite) ;
+        $activite->status=implode('|',$request->status ) ;
+        $activite->description =implode('|',$request->description ) ;
+        $activite->observation = implode('|',$request->observation ) ;
         $activite->service2=$request->service;
-        $activite->intitule_activite2 =$request->intitule_activite2 ;
-        $activite->deadline=$request->deadline  ;
-        $activite->description2 = $request->description2  ;
-        $activite->observation2 = $request->observation2  ;
+        $activite->intitule_activite2 =implode('|',$request->intitule_activite2) ;
+        $activite->deadline=implode('|',$request->deadline ) ;
+        $activite->description2 = implode('|',$request->description2 ) ;
+        $activite->observation2 = implode('|',$request->observation2 ) ;
         $activite->save();
         notify()->success("L'activité <span class='badge badge-dark'>#$activite->id</span> a été bien mise à jour");
         return redirect()->route('activites.index');
@@ -177,18 +181,18 @@ class activitesController extends Controller
     }
     public function pdf($id)
         {
-            $activite=Activites::find($id);
-            $this->data['expl'] = $activite;
-            $array= [explode(',', $this->data['expl']->intitule_activite),
-            explode(',', $this->data['expl']->description),
-            explode(',', $this->data['expl']->status),
-            explode(',', $this->data['expl']->observation),
-            ];
-            $array2= [explode(',', $this->data['expl']->intitule_activite2),
-            explode(',', $this->data['expl']->description2),
-            explode(',', $this->data['expl']->deadline),
-            explode(',', $this->data['expl']->observation2),
-            ];
+        $activite=Activites::find($id);
+        $array= [explode('|', $activite->intitule_activite),
+        explode('|', $activite->description),
+        explode('|', $activite->status),
+        explode('|', $activite->observation),
+        ];
+        $array2= [explode('|', $activite->intitule_activite2),
+        explode('|', $activite->description2),
+        explode('|', $activite->deadline),
+        explode('|', $activite->observation2),
+        ];
+
             $data = [
                 'title' => 'activite',
                 'activite'=>$activite,
@@ -197,7 +201,7 @@ class activitesController extends Controller
             ];
         // return view('activites.pdf', $data);
             $pdf = PDF::loadview('activites/pdf', $data)->setpaper('21 x 29,7', 'portrait');
-        return $pdf->stream('myfile.pdf',array("Attachment"=>0));
+        return $pdf->stream('myfile.pdf', array("Attachment"=>0));
 
         }
 }

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
        $this->call(MaterielSeeder::class);
        $this->call(ServiceDIDNSeeder::class);
        $this->call(ServiceMETFPSeeder::class);
-       $this->call(TachesSeeder::class);
+       //$this->call(TachesSeeder::class);
        $this->call(ResultatSeeder::class);
        $this->call(ProblemeSeeder::class);
        $this->call(SolutionSeeder::class);
