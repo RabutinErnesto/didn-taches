@@ -12,7 +12,6 @@
 
         <div class="links m-b-md">
             <a href="{{ route('login') }}">Login</a>
-            <a href="{{ route('register') }}">Register</a>
         </div>
     </div>
 </div>

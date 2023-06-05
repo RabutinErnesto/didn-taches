@@ -12,7 +12,7 @@
                         </div>
                     @endif
                     {{ Auth::user()->name }},
-                    {{ __('You are logged in!') }}
+                    {{ __('Vous êtes authentifié!') }}
                     <div class="text-center"><img src="{{asset('img/logo.png')}}" alt="..." class=" w-5 p-2"></div>
             <div class="h3 text-center">
                     Olo-mahay raha, tsy very mandeha

@@ -19,6 +19,7 @@
     <link rel="shortcut icon" href="{{asset('img/logo.png')}}" type="image/x-icon">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
 
     @notify_css
 </head>
@@ -134,12 +135,15 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Déconnexion') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    @can('manage-users')
+                                    <a  class="dropdown-item" href="{{route('users.index')}}">Liste des Utilisateurs</a>
+                                    @endcan
                                 </div>
                             </li>
                         @endguest
@@ -160,8 +164,11 @@
             </footer>
         </footer>
     </div>
-
-
+    <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{asset('js/dataTables.min.js')}}"></script>
+    <script>
+        let table = new DataTable('#dataTable');
+    </script>
 </body>
 @notify_js
 @notify_render

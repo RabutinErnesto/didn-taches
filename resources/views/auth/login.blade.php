@@ -4,10 +4,10 @@
 
     <div class="container flex-center position-ref full-height">
         <div class="row justify-content-center col-8">
+            <div class="mb-2 mt-3"><img src="{{asset('img/logo.png')}}" alt=""></div>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('Login') }}</div>
-
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
