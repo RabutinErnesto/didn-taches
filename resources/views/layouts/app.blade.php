@@ -98,17 +98,17 @@
                     @endauth
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
+                        <li class="nav-item  {{ request()->is('taches*') ? 'active' : '' }}">
                             <a href="{{ route('taches.index')}}" class="nav-link">Les taches</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('fiches*') ? 'active' : '' }}">
                             <a href="{{ route('fiches.index')}}" class="nav-link">Fiche d'intervention</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('activites*') ? 'active' : '' }}">
                             <a href="{{ route('activites.index')}}" class="nav-link">Activités</a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('apropos') ? 'active' : '' }}">
                             <a href="{{ route('apropos')}}" class="nav-link">A propos</a>
                         </li>
                     </ul>
