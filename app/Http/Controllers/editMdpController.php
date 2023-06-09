@@ -22,7 +22,7 @@ class editMdpController extends Controller
     {
         $request->validate([
             'current_password' => 'required',
-            'new_password' => 'required|string|min:8|confirmed',
+            'new_password' => 'required|string|min:4|confirmed',
         ]);
 
         $user = Auth::user();
@@ -33,8 +33,8 @@ class editMdpController extends Controller
 
         $user->password = Hash::make($request->new_password);
         $user->save();
-
-        return redirect()->back()->with('success', 'Le mot de passe a été modifié avec succès.');
+        notify()->success('Le mot de passe a été modifié avec succès.');
+        return redirect()->back();
     }
 
     /**
