@@ -129,4 +129,5 @@ class UsersController extends Controller
         $user->delete();
         return redirect()->route('users.index');
     }
+
 }

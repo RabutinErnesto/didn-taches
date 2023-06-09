@@ -144,6 +144,7 @@
                                     @can('manage-users')
                                     <a  class="dropdown-item" href="{{route('users.index')}}">Liste des Utilisateurs</a>
                                     @endcan
+                                    <a class="dropdown-item" href="{{route('edit_mdp')}}">Changer mot de passe</a>
                                 </div>
                             </li>
                         @endguest

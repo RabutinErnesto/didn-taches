@@ -24,6 +24,10 @@ Route::namespace('admin')->middleware('can:manage-users')->group(function()
     Route::resource('users', 'UsersController');
 });
 
+Route::get('/edit_mdp', 'editMdpController@index')->name('edit_mdp');
+Route::post('/change-password', 'editMdpController@change')->name('password.change');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/a-propos', 'AproposControlleur@index')->name('apropos');
 
@@ -45,3 +49,4 @@ Route::get('fiche-vide-pdf','FichesController@fiche_vide')->name('fiche-vide');
 Route::resource('activites', 'ActivitesController');
 Route::get('activite-generate-pdf/{id}','ActivitesController@pdf')->name('pdf');
 Route::get('test','ActivitesController@test')->name('test');
+
