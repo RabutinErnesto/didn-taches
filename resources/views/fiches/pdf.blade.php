@@ -91,7 +91,7 @@
                     </div>
 
             <!-- -->
-            <strong> <ins><p style="font-size:12px">Probleme(s) constate(s) :</p></ins></strong>
+            <strong> <ins><p style="font-size:12px; margin-top: -1%;">Probleme(s) constate(s) :</p></ins></strong>
 
                 <div style="font-size:12px">
 
@@ -105,7 +105,7 @@
                 </div>
 
                 <div style="font-size:12px"> @if ($fiche->problemes)
-                    <p style="font-size:12px">{{$fiche->problemes}}
+                    <p style="font-size:12px"> -> {{$fiche->problemes}}
                 @else --------------------------------------------------------------------------------------------------------------------------------------------------------
 
                 @endif </p></div>
@@ -113,7 +113,7 @@
 
 
 
-            <strong><ins><p style="font-size:12px">Solution(s) envisagee(s) / intervention(s) :</p></ins></strong>
+            <strong><ins><p style="font-size:12px; margin-top: -1%;">Solution(s) envisagee(s) / intervention(s) :</p></ins></strong>
 
             <div style="font-size:12px"> @if ($fiche->interventions)
                 <p>{{$fiche->interventions}}

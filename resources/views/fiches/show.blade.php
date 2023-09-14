@@ -8,7 +8,7 @@
 
 
 
-                <p>No: {{$fiche->id}} /METFP/CGPP/DIDN/SMAR</p>
+                <p>No: {{$fiche->id}}/METFP/CGPP/DIDN/SMAR</p>
 
                 <div class="row">
                     <div class="col-4"><ins><strong>ENTREES :</strong> </ins> </div>

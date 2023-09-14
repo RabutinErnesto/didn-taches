@@ -12,7 +12,13 @@ use App\Resultat;
 use App\Service;
 use App\Direction;
 use PDF;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\FichesExport;
+use App\Exports\RabutinExporteur;
+
+
 
 class fichesController extends Controller
 {
@@ -30,6 +36,60 @@ class fichesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function exportFiches(Request $request)
+     {
+
+        $periode = $request->input('periode');
+        $today = Carbon::now();
+        if ($periode == '5') {
+            $startDate = $today->subDays(5);
+        } elseif ($periode == '10') {
+            $startDate = $today->subDays(10);
+        } elseif ($periode == '30') {
+            $startDate = $today->subDays(30);
+        } else {
+            $startDate = null;
+        }
+        $fiche = Fiches::where(function ($query) use ($startDate) {
+            if ($startDate) {
+                $query->where('created_at', '>=', $startDate);
+            }
+        })->get();
+
+        $resultatMapping = [];
+        foreach ($fiche as $f) {
+        $resultatMapping[$f->id] = 'Résultat ' . $f->id;
+    }
+            return Excel::download(new RabutinExporteur($fiche, $resultatMapping), 'fiches.xlsx');
+
+
+         return view('fiches.index', compact('fiche'));
+     }
+    public function filtrerFiches(Request $request)
+    {
+        $periode = $request->input('periode');
+        $today = Carbon::now();
+
+        if ($periode == '5') {
+            $startDate = $today->subDays(5);
+        } elseif ($periode == '10') {
+            $startDate = $today->subDays(10);
+        } elseif ($periode == '30') {
+            $startDate = $today->subDays(30);
+        } else {
+            $startDate = null;
+        }
+
+        $fiche = Fiches::where(function ($query) use ($startDate) {
+            if ($startDate) {
+                $query->where('created_at', '>=', $startDate);
+            }
+        })->orderBy('id','desc')->paginate(10);
+
+
+        return view('fiches.index', compact('fiche'));
+    }
     public function index()
     {
 
@@ -254,4 +314,9 @@ class fichesController extends Controller
         return $pdf->stream('fiche_d_Intervention_vide.pdf', array("Attachment"=>false));
 
     }
+    public function exportExcel()
+    {
+        return Excel::download(new FichesExport , 'fiches_intervention.xlsx');
+    }
+
 }

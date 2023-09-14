@@ -26,4 +26,7 @@ class FichePolicy
     public function edit(User $user, Fiches $fiche){
         return $user->id === $fiche->user_created;
     }
+    public function show(User $user, Fiches $fiche){
+        return $user->id === $fiche->user_created;
+    }
 }

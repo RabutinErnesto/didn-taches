@@ -18,7 +18,7 @@ class TacheAffected extends Notification
      */
     public function __construct($tache)
     {
-        $this->tache =$tache;
+        $this->tache = $tache;
     }
 
     /**
@@ -41,11 +41,11 @@ class TacheAffected extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->from('noreply@dsi-tache-journalier.com','Dsi-tache')
-                    ->subject('Tu as une nouvelle tache a finir ')
-                    ->line("La tache (#".$this->tache->id.")'".$this->tache->nom."' vient d'etre affecté par ".$this->tache->tacheAffectedBy->name.".")
-                    ->action('Voir tous les taches', url('/taches'))
-                    ->line("Merci d'utiliser notre application");
+            ->from('noreply@dsi-tache-journalier.com', 'Dsi-tache')
+            ->subject('Tu as une nouvelle tache a finir ')
+            ->line("La tache (#" . $this->tache->id . ")'" . $this->tache->nom . "' vient d'etre affecté par " . $this->tache->tacheAffectedBy->name . ".")
+            ->action('Voir tous les taches', url('/taches'))
+            ->line("Merci d'utiliser notre application");
     }
 
     /**
@@ -58,8 +58,9 @@ class TacheAffected extends Notification
     {
         return [
             'tache_id' => $this->tache->id,
-            'affected_by'=> $this->tache->tacheAffectedBy->name,
-            'nom_tache'=>$this->tache->nom,
+            'affected_by' => $this->tache->tacheAffectedBy->name,
+            'nom_tache' => $this->tache->maintenance->titre,
+            'collabo' => $this->tache->collaborateur,
         ];
     }
 }

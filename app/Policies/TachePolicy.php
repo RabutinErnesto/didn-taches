@@ -29,7 +29,9 @@ class TachePolicy
         return $user->id === $tache->creator_id;
     }
 
-
+    public function show(User $user, Tache $tache){
+        return $user->id === $tache->creator_id;
+    }
 
 
 }

@@ -34,8 +34,8 @@ class activitesController extends Controller
     public function index()
     {
 
-        $userId = Auth::user()->id;
-        $this->data['activite']=Activites::orderBy('id','desc')->get();
+        $userSerice = Auth::user()->service;
+        $this->data['activite']=Activites::where('service', $userSerice)->orderBy('id','desc')->paginate(10);
         $this->data['users']=$this->users;
         return view('activites.index',$this->data);
     }

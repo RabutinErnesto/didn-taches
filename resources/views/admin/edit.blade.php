@@ -38,6 +38,26 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="form-group row">
+
+                        <label for="email" class="col-md-6 col-form-label">{{ __('Service') }}</label>
+
+                        <div class="col-md-12">
+
+                            <select name="service" id="" class="form-control @error('service') is-invalid @enderror" required>
+                                <option value="{{$user->service}}">{{$user->service}}</option>
+                                @foreach ($services as $item)
+                                    <option value="{{$item->abr}}">{{$item->abr}}</option>
+                                @endforeach
+                            </select>
+
+                            @error('service')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
 
 
                     @foreach ($roles as $role)

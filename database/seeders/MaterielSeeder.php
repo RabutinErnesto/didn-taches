@@ -21,6 +21,9 @@ class MaterielSeeder extends Seeder
             [ 'materiel'=>'Imprimante',],
             [ 'materiel'=>'Onduleur',],
             [ 'materiel'=>'Stabilisateur',],
+            [ 'materiel'=>'Switch',],
+            [ 'materiel'=>'Bafle',],
+            [ 'materiel'=>'Amplificateur',],
          ]);
     }
 }

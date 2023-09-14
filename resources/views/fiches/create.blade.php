@@ -191,5 +191,6 @@
   <script src="{{asset('js/jquery-3.2.1.js')}}"></script>
   <script src="{{asset('js/jquery.chained.min.js')}}"></script>
 <script>
-$("#service").chained("#direction");</script>
+$("#service").chained("#direction");
+</script>
 @endsection

@@ -14,8 +14,9 @@ class ResultatSeeder extends Seeder
     public function run()
     {
         DB::table('resultats')->insert([
-            [ 'resultat'=>'PROBLEME RESOLU',],
-            [ 'resultat'=>'PROBLEME NON RESOLU',],
+            [ 'resultat'=>'Réparé',],
+            [ 'resultat'=>'Non Réparé',],
+            [ 'resultat'=>'En attente pièce',],
          ]);
     }
 }

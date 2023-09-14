@@ -19,11 +19,17 @@ class ActivitesPolicy
     {
         //
     }
+
+
+
     public function delete(User $user, Activites $activite){
         return $user->id === $activite->user_created;
-    }
 
+    }
     public function edit(User $user, Activites $activite){
+        return $user->id === $activite->user_created;
+    }
+    public function show(User $user, Activites $activite){
         return $user->id === $activite->user_created;
     }
 }

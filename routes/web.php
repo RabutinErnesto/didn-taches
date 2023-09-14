@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
+Route::get('/teste', function () {
+    return 'coucou!';
+});
+
 Auth::routes();
 
 Route::namespace('admin')->middleware('can:manage-users')->group(function()
@@ -38,6 +43,8 @@ Route::get('taches/create', 'TacheControlleur@create')->name('taches.create');
 Route::put('taches/makedone/{tache}', 'TacheControlleur@makedone')->name('taches.makedone');
 Route::put('taches/makeundone/{tache}', 'TacheControlleur@makeundone')->name('taches.makeundone');
 Route::get('taches/{tache}/affectedto/{user}', 'TacheControlleur@affectedto')->name('taches.affectedto');
+Route::put('taches/collabo/{tache}', 'TacheControlleur@collabo')->name('taches.collabo');
+Route::get('taches/ajoutcollabo/{tache}', 'TacheControlleur@ajoutcollabo')->name('taches.ajoutcollabo');
 
 
 Route::resource('taches', 'TacheControlleur');
@@ -50,3 +57,19 @@ Route::resource('activites', 'ActivitesController');
 Route::get('activite-generate-pdf/{id}','ActivitesController@pdf')->name('pdf');
 Route::get('test','ActivitesController@test')->name('test');
 
+// Route::get('/export-excel', 'fichesController@exportExcel')->name('export-excel');
+Route::get('/telecharger-excel', 'FichesController@exportFiches')->name('telecharger-excel');
+Route::get('/filtrer-fiches', 'FichesController@filtrerFiches')->name('filtrer-fiches');
+
+
+Route::get('/telecharger-excel-tache', 'TacheControlleur@exportTaches')->name('telecharger-excel-tache');
+Route::get('/filtrer-Taches', 'TacheControlleur@filtrerTaches')->name('filtrer-taches');
+
+
+
+Route::resource('bonsorties', 'BonsortiesController');
+Route::get('fiche-generate-pdf/{id}','BonsortiesController@pdf')->name('fiche-pdf');
+// Route::get('fiche-vide-pdf','BonsortiesController@fiche_vide')->name('fiche-vide');
+
+Route::get('/telecharger-excel-bon', 'BonsortiesController@exportBon')->name('telecharger-excel-bon');
+Route::get('/filtrer-Bon', 'BonsortiesController@filtrerBon')->name('filtrer-bon');

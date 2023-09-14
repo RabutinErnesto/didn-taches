@@ -31,14 +31,10 @@
 
                         <tbody class="text-center">
                             <tr class="border-top">
-
-                                <th  colspan="4" class="border-0"> <h5>Semaine du : {{$activite->semaine}} </h5> </th>
-
+                                <th colspan="4" class="border-0"> <h5>Semaine du : {{$activite->semaine}} </h5> </th>
                             </tr>
                             <tr class="border-top">
-
                                 <th colspan="4"  class="border-0"><p> <strong>SERVICE :{{$activite->service}}</strong></p></th>
-
                             </tr>
                             <tr class="">
                                 <td scope="row"> <strong>Intitulé de l'activité</strong> </td>
@@ -47,109 +43,17 @@
                                 <td><strong>Observations</strong></td>
                             </tr>
 
+                            @for ($i = 0; $i < 10; $i++)
                                 <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset ($k[0] )
-                                    <td>{{$k[0]}}</td>
-                                    @else
-
-                                    @endisset
-
+                                    @foreach ($array as $key => $k)
+                                        @isset($k[$i])
+                                            <td>{{$k[$i]}}</td>
+                                        @endisset
                                     @endforeach
                                 </tr>
-                                <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset ($k[1] )
-                                    <td>{{$k[1]}}</td>
-                                    @else
-
-                                    @endisset
-
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset($k[2])
-                                    <td>{{$k[2]}}</td>
-
-
-                                    @else
-
-                                    @endisset
-                                    @endforeach
-                                </tr>
-
-                                <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset ($k[3] )
-                                    <td>{{$k[3]}}</td>
-                                    @else
-
-                                    @endisset
-
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset ($k[4] )
-                                    <td>{{$k[4]}}</td>
-                                    @else
-
-                                    @endisset
-
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset ($k[5] )
-                                    <td>{{$k[5]}}</td>
-                                    @else
-
-                                    @endisset
-
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset ($k[6] )
-                                    <td>{{$k[6]}}</td>
-                                    @else
-
-                                    @endisset
-
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset ($k[7] )
-                                    <td>{{$k[7]}}</td>
-                                    @else
-
-                                    @endisset
-
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset ($k[8] )
-                                    <td>{{$k[8]}}</td>
-                                    @else
-
-                                    @endisset
-
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    @foreach ($array as $key=>$k)
-                                    @isset ($k[9] )
-                                    <td>{{$k[9]}}</td>
-                                    @else
-
-                                    @endisset
-
-                                    @endforeach
-                                </tr>
+                            @endfor
                         </tbody>
+
                     </table>
 
 
@@ -181,112 +85,15 @@
                                 <td><strong>Deadline</strong> </td>
                                 <td><strong>Observations</strong></td>
                             </tr>
+                            @for ($i = 0; $i < 10; $i++)
                             <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset ($k2[0] )
-                                <td>{{$k2[0]}}</td>
-                                @else
-
-                                @endisset
-
-                                @endforeach
-                            </tr>
-                            <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset ($k2[1] )
-                                <td>{{$k2[1]}}</td>
-                                @else
-
-                                @endisset
-
-                                @endforeach
-                            </tr>
-                            <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset($k2[2])
-                                <td>{{$k2[2]}}</td>
-
-
-                                @else
-
+                                @foreach ($array2 as $key => $k)
+                                    @isset($k[$i])
+                                        <td>{{$k[$i]}}</td>
                                     @endisset
                                 @endforeach
                             </tr>
-                            <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset ($k2[3] )
-                                <td>{{$k2[3]}}</td>
-                                @else
-
-                                @endisset
-
-                                @endforeach
-                            </tr>
-                            <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset ($k2[4] )
-                                <td>{{$k2[4]}}</td>
-                                @else
-
-                                @endisset
-
-                                @endforeach
-                            </tr>
-                            <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset($k2[5])
-                                <td>{{$k2[5]}}</td>
-
-
-                                @else
-
-                                    @endisset
-                                @endforeach
-                            </tr>
-                            <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset($k2[6])
-                                <td>{{$k2[6]}}</td>
-
-
-                                @else
-
-                                    @endisset
-                                @endforeach
-                            </tr>
-                            <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset($k2[7])
-                                <td>{{$k2[7]}}</td>
-
-
-                                @else
-
-                                    @endisset
-                                @endforeach
-                            </tr>
-                            <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset($k2[8])
-                                <td>{{$k2[8]}}</td>
-
-
-                                @else
-
-                                    @endisset
-                                @endforeach
-                            </tr>
-                            <tr>
-                                @foreach ($array2 as $key=>$k2)
-                                @isset($k2[9])
-                                <td>{{$k2[9]}}</td>
-
-
-                                @else
-
-                                    @endisset
-                                @endforeach
-                            </tr>
+                        @endfor
                         </tbody>
                     </table>
 

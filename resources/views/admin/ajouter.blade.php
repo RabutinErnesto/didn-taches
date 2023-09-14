@@ -34,6 +34,27 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="service" class="col-md-4 col-form-label text-md-right">{{ __('Service') }}</label>
+
+                            <div class="col-md-6">
+
+                                <select name="service" id="" class="form-control @error('service') is-invalid @enderror" required>
+                                    <option value=""></option>
+                                    @foreach ($services as $item)
+                                        <option value="{{$item->abr}}">{{$item->abr}}</option>
+                                    @endforeach
+                                </select>
+
+                                @error('service')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Mot de passe') }}</label>
 
                             <div class="col-md-6">

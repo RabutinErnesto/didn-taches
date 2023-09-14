@@ -8,7 +8,7 @@
         <div><img src="{{asset('img/logo.png')}}" alt=""></div>
         <div class="title m-b-md">
             TACHES JOURNALIER
-        </div>
+        </div>F
 
         <div class="links m-b-md">
             <a href="{{ route('login') }}">Login</a>

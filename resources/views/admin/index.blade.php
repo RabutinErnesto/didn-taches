@@ -3,6 +3,13 @@
 @section('content')
 
     <div class="row justify-content-center" >
+        @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
         <div class="col-md-12">
             <div class="card" >
                 <div class="card-header" >
@@ -17,6 +24,7 @@
                 <td scope="col">Nom</td>
                 <td scope="col">Email</td>
                 <td scope="col">Roles</td>
+                <td scope="col">Service</td>
                 <td scope="col">Action</td>
                 </tr>
                 </thead>
@@ -28,6 +36,7 @@
                         <td scope="col">{{ $users->name}}</td>
                         <td scope="col">{{$users->email}}</td>
                         <td scope="col">{{ implode(',', $users->roles()->get()->pluck('name')->toArray()) }}</td>
+                        <td scope="col">{{$users->service}}</td>
                         <td scope="col">
                         <a href="{{route('users.edit' , $users->id)}}"> <button class="btn btn-success" >Editer</button> </a>
                             @can('delete-users')
